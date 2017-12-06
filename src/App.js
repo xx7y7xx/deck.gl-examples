@@ -20,13 +20,42 @@ class App extends Component {
         pitch: 30,
         width: 1000,
         height: 1000
-      }
+      },
+      data: [
+        {
+          ADDRESS: "180 TOWNSEND ST",
+          RACKS: 1,
+          SPACES: 2,
+          COORDINATES: [-122.392606, 37.779369]
+        },
+        {
+          ADDRESS: "247 FILLMORE ST",
+          RACKS: 1,
+          SPACES: 2,
+          COORDINATES: [-122.43065953, 37.77185018]
+        },
+        {
+          ADDRESS: "247 FILLMORE ST",
+          RACKS: 1,
+          SPACES: 2,
+          COORDINATES: [-122.43065953, 37.77185018]
+        }
+      ]
     };
   }
 
   componentDidMount() {
     window.addEventListener("resize", this._resize.bind(this));
     this._resize();
+    // this.setState({
+    //   data: [...getFakeData()]
+    // });
+    // const fakeData = getFakeData();
+    // fakeData.forEach(item => {
+    //   this.setState({
+    //     data: [...this.state.data, item]
+    //   });
+    // });
   }
 
   _resize() {
@@ -40,12 +69,17 @@ class App extends Component {
     this.setState({ viewport: { ...this.state.viewport, ...viewport } });
   }
 
+  handleChange = event => {
+    const { value } = event.target;
+    this.setState({ viewport: { ...this.state.viewport, pitch: value } });
+  };
+
   render() {
-    const { viewport } = this.state;
-    log("fake data", getFakeData());
+    const { viewport, data } = this.state;
+    log("fake data", data);
     const layer = new HexagonLayer({
       id: "hexagon-layer",
-      data: getFakeData(),
+      data,
       getPosition: d => d.COORDINATES,
       pickable: true,
       extruded: true,
@@ -54,14 +88,17 @@ class App extends Component {
     });
 
     return (
-      <MapGL
-        {...viewport}
-        mapStyle="mapbox://styles/mapbox/dark-v9"
-        onViewportChange={this._onViewportChange.bind(this)}
-        mapboxApiAccessToken={MAPBOX_TOKEN}
-      >
-        <DeckGL {...viewport} layers={[layer]} />
-      </MapGL>
+      <div>
+        <input value={this.state.viewport.pitch} onChange={this.handleChange} />
+        <MapGL
+          {...viewport}
+          mapStyle="mapbox://styles/mapbox/dark-v9"
+          onViewportChange={this._onViewportChange.bind(this)}
+          mapboxApiAccessToken={MAPBOX_TOKEN}
+        >
+          <DeckGL {...viewport} layers={[layer]} />
+        </MapGL>
+      </div>
     );
   }
 }
