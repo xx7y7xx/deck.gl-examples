@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@deck.gl/extensions": "^8.9.7",
     "@deck.gl/layers": "^8.9.7",
     "@deck.gl/react": "^8.9.7",
     "@testing-library/jest-dom": "^5.16.5",
