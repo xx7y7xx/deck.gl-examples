@@ -1,0 +1,16 @@
+{
+  "type": "Feature",
+  "properties": {},
+  "geometry": {
+    "coordinates": [
+      [
+        [104, 2],
+        [104, 1],
+        [105, 1],
+        [105, 2],
+        [104, 2]
+      ]
+    ],
+    "type": "Polygon"
+  }
+}
